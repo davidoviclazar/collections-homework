@@ -9,7 +9,10 @@ public class Bigram {
 
 	public static void main(String[] args) {
 
+		// input
 		String input = "abbcceeeeeeabcc";
+		// check string
+		String check = "ja";
 
 		Map<String, Integer> map = new HashMap<String, Integer>();
 
@@ -28,6 +31,30 @@ public class Bigram {
 			Map.Entry<String, Integer> entry = (Entry<String, Integer>) iterator.next();
 			System.out.println(entry.getKey() + " " + entry.getValue());
 		}
+
+		// check next character
+		for (int i = 0; i < 3; i++) {
+			int maxFrequency = 0;
+			String maxFrequencyBigram = "";
+
+			for (Map.Entry<String, Integer> e : map.entrySet()) {
+				if (e.getKey().startsWith(check.substring(check.length() - 1))) {
+					if (maxFrequency < e.getValue()) {
+						maxFrequencyBigram = e.getKey();
+						maxFrequency = e.getValue();
+					}
+				}
+			}
+
+			if (maxFrequency > 0) {
+				char nextCharacter = maxFrequencyBigram.charAt(1);
+				check = check + nextCharacter + "";
+			}
+
+		}
+
+		System.out.println(check);
+
 	}
 
 }
